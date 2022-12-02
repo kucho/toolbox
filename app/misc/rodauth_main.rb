@@ -9,12 +9,14 @@ class RodauthMain < Rodauth::Rails::Auth
       :logout,
       :remember,
       :reset_password,
+      :reset_password_notify,
       :change_password,
       :change_password_notify,
       :change_login,
       :verify_login_change,
       :close_account,
-      :active_sessions
+      :active_sessions,
+      :audit_logging
     )
 
     # See the Rodauth documentation for the list of available config options:

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_11_29_204203) do
+ActiveRecord::Schema[7.0].define(version: 2022_12_02_155035) do
   # These are extensions that must be enabled in order to support this database
   enable_extension("citext")
   enable_extension("plpgsql")
@@ -21,6 +21,16 @@ ActiveRecord::Schema[7.0].define(version: 2022_11_29_204203) do
     t.datetime("created_at", default: -> { "CURRENT_TIMESTAMP" }, null: false)
     t.datetime("last_use", default: -> { "CURRENT_TIMESTAMP" }, null: false)
     t.index(["account_id"], name: "index_account_active_session_keys_on_account_id")
+  end
+
+  create_table("account_authentication_audit_logs", force: :cascade) do |t|
+    t.bigint("account_id", null: false)
+    t.datetime("at", default: -> { "CURRENT_TIMESTAMP" }, null: false)
+    t.text("message", null: false)
+    t.jsonb("metadata")
+    t.index(["account_id", "at"], name: "audit_account_at_idx")
+    t.index(["account_id"], name: "index_account_authentication_audit_logs_on_account_id")
+    t.index(["at"], name: "audit_at_idx")
   end
 
   create_table("account_login_change_keys", force: :cascade) do |t|
@@ -77,6 +87,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_11_29_204203) do
   end
 
   add_foreign_key("account_active_session_keys", "accounts")
+  add_foreign_key("account_authentication_audit_logs", "accounts")
   add_foreign_key("account_login_change_keys", "accounts", column: "id")
   add_foreign_key("account_password_reset_keys", "accounts", column: "id")
   add_foreign_key("account_remember_keys", "accounts", column: "id")
