@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_12_02_163525) do
+ActiveRecord::Schema[7.0].define(version: 2022_12_02_164223) do
   # These are extensions that must be enabled in order to support this database
   enable_extension("citext")
   enable_extension("pgcrypto")
@@ -87,6 +87,15 @@ ActiveRecord::Schema[7.0].define(version: 2022_12_02_163525) do
     t.index(["stream", "position"], name: "index_event_store_events_in_streams_on_stream_and_position", unique: true)
   end
 
+  create_table("profiles", force: :cascade) do |t|
+    t.string("first_name")
+    t.string("last_name")
+    t.bigint("account_id", null: false)
+    t.datetime("created_at", null: false)
+    t.datetime("updated_at", null: false)
+    t.index(["account_id"], name: "index_profiles_on_account_id")
+  end
+
   create_table("tenants", force: :cascade) do |t|
     t.uuid("uuid")
     t.string("name")
@@ -102,4 +111,5 @@ ActiveRecord::Schema[7.0].define(version: 2022_12_02_163525) do
   add_foreign_key("account_password_reset_keys", "accounts", column: "id")
   add_foreign_key("account_remember_keys", "accounts", column: "id")
   add_foreign_key("account_verification_keys", "accounts", column: "id")
+  add_foreign_key("profiles", "accounts")
 end
