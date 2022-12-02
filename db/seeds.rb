@@ -12,3 +12,10 @@ account = Account.create!(email: "test@test.com", password: "12345678", status: 
 MultiTenantSupport.under_tenant(tenant) do
   tenant.accounts << account
 end
+
+coneable_tenant = Tenant.create!(name: "Coneable", domain: "localhost")
+coneable_account = Account.create!(email: "drihu@test.com", password: "12345678", status: :verified)
+
+MultiTenantSupport.under_tenant(coneable_tenant) do
+  coneable_tenant.accounts << coneable_account
+end

@@ -15,7 +15,7 @@ MultiTenantSupport.configure do
   end
 
   console do |config|
-    config.allow_read_across_tenant_by_default = false
+    config.allow_read_across_tenant_by_default = true
   end
 end
 
