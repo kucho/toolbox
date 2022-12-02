@@ -121,6 +121,8 @@ GEM
     mini_mime (1.1.2)
     minitest (5.16.3)
     msgpack (1.6.0)
+    multi-tenant-support (1.5.0)
+      rails (>= 6.1)
     net-imap (0.3.1)
       net-protocol
     net-pop (0.1.2)
@@ -260,6 +262,7 @@ DEPENDENCIES
   debug
   jbuilder
   jsbundling-rails
+  multi-tenant-support
   pg (~> 1.1)
   puma (~> 5.0)
   rails (~> 7.0.4)

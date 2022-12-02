@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_12_02_164623) do
+ActiveRecord::Schema[7.0].define(version: 2022_12_02_170705) do
   # These are extensions that must be enabled in order to support this database
   enable_extension("citext")
   enable_extension("pgcrypto")
@@ -112,6 +112,8 @@ ActiveRecord::Schema[7.0].define(version: 2022_12_02_164623) do
     t.string("logo")
     t.datetime("created_at", null: false)
     t.datetime("updated_at", null: false)
+    t.string("domain")
+    t.string("subdomain")
   end
 
   add_foreign_key("account_active_session_keys", "accounts")

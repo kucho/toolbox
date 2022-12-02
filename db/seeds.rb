@@ -6,6 +6,9 @@
 #   movies = Movie.create([{ name: "Star Wars" }, { name: "Lord of the Rings" }])
 #   Character.create(name: "Luke", movie: movies.first)
 
-tenant = Tenant.create!(name: "Toolbox", slug: "toolbox")
+tenant = Tenant.create!(name: "Toolbox", domain: "localhost")
 account = Account.create!(email: "test@test.com", password: "12345678", status: :verified)
-tenant.accounts << account
+
+MultiTenantSupport.under_tenant(tenant) do
+  tenant.accounts << account
+end
