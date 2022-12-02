@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_12_02_164223) do
+ActiveRecord::Schema[7.0].define(version: 2022_12_02_164623) do
   # These are extensions that must be enabled in order to support this database
   enable_extension("citext")
   enable_extension("pgcrypto")
@@ -96,8 +96,17 @@ ActiveRecord::Schema[7.0].define(version: 2022_12_02_164223) do
     t.index(["account_id"], name: "index_profiles_on_account_id")
   end
 
+  create_table("tenant_accounts", force: :cascade) do |t|
+    t.bigint("tenant_id", null: false)
+    t.bigint("account_id", null: false)
+    t.datetime("created_at", null: false)
+    t.datetime("updated_at", null: false)
+    t.index(["account_id"], name: "index_tenant_accounts_on_account_id")
+    t.index(["tenant_id"], name: "index_tenant_accounts_on_tenant_id")
+  end
+
   create_table("tenants", force: :cascade) do |t|
-    t.uuid("uuid")
+    t.uuid("uuid", default: -> { "gen_random_uuid()" })
     t.string("name")
     t.string("slug")
     t.string("logo")
@@ -112,4 +121,6 @@ ActiveRecord::Schema[7.0].define(version: 2022_12_02_164223) do
   add_foreign_key("account_remember_keys", "accounts", column: "id")
   add_foreign_key("account_verification_keys", "accounts", column: "id")
   add_foreign_key("profiles", "accounts")
+  add_foreign_key("tenant_accounts", "accounts")
+  add_foreign_key("tenant_accounts", "tenants")
 end
