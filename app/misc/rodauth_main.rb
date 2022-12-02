@@ -53,7 +53,7 @@ class RodauthMain < Rodauth::Rails::Auth
     # delete_account_on_close? true
 
     # Redirect to the app from login and registration pages if already logged in.
-    # already_logged_in { redirect login_redirect }
+    already_logged_in { redirect login_redirect }
 
     # ==> Emails
     # Use a custom mailer for delivering authentication emails.
@@ -105,10 +105,12 @@ class RodauthMain < Rodauth::Rails::Auth
 
     # ==> Remember Feature
     # Remember all logged in users.
-    after_login { remember_login }
+    # after_login { remember_login }
 
     # Or only remember users that have ticked a "Remember Me" checkbox on login.
-    # after_login { remember_login if param_or_nil("remember") }
+    after_login { remember_login if param_or_nil("remember") }
+
+    login_redirect { Rails.application.routes.url_helpers.dashboard_path }
 
     # Extend user's remember period when remembered via a cookie
     extend_remember_deadline? true

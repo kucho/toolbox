@@ -3,5 +3,7 @@ Rails.application.routes.draw do
 
   root("pages#landing")
 
+  get("/dashboard", to: "pages#dashboard", as: :dashboard)
+
   mount(RailsEventStore::Browser => "/res")
 end
