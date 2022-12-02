@@ -10,9 +10,10 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_12_02_155035) do
+ActiveRecord::Schema[7.0].define(version: 2022_12_02_163525) do
   # These are extensions that must be enabled in order to support this database
   enable_extension("citext")
+  enable_extension("pgcrypto")
   enable_extension("plpgsql")
 
   create_table("account_active_session_keys", primary_key: ["account_id", "session_id"], force: :cascade) do |t|
@@ -84,6 +85,15 @@ ActiveRecord::Schema[7.0].define(version: 2022_12_02_155035) do
     t.index(["created_at"], name: "index_event_store_events_in_streams_on_created_at")
     t.index(["stream", "event_id"], name: "index_event_store_events_in_streams_on_stream_and_event_id", unique: true)
     t.index(["stream", "position"], name: "index_event_store_events_in_streams_on_stream_and_position", unique: true)
+  end
+
+  create_table("tenants", force: :cascade) do |t|
+    t.uuid("uuid")
+    t.string("name")
+    t.string("slug")
+    t.string("logo")
+    t.datetime("created_at", null: false)
+    t.datetime("updated_at", null: false)
   end
 
   add_foreign_key("account_active_session_keys", "accounts")
