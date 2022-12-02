@@ -147,5 +147,10 @@ class RodauthMain < Rodauth::Rails::Auth
     # reset_password_deadline_interval Hash[hours: 6]
     # verify_login_change_deadline_interval Hash[days: 2]
     # remember_deadline_interval Hash[days: 30]
+
+    after_login do
+      tenant_account = TenantAccount.find_by(account_id: account_id, tenant_id: MultiTenantSupport.current_tenant_id)
+      throw_error("account_id", "Account not found for tenant") unless tenant_account
+    end
   end
 end
