@@ -7,6 +7,7 @@ gem "jbuilder" # Build JSON APIs with ease [https://github.com/rails/jbuilder]
 gem "jsbundling-rails" # Bundle and transpile JavaScript [https://github.com/rails/jsbundling-rails]
 gem "multi-tenant-support"
 gem "pg", "~> 1.1" # Use postgresql as the database for Active Record
+gem "phlex-rails"
 gem "puma", "~> 5.0" # Use the Puma web server [https://github.com/puma/puma]
 gem "rails", "~> 7.0.4" # Bundle edge Rails instead: gem "rails", github: "rails/rails", branch: "main"
 gem "rails_event_store"
