@@ -13,4 +13,7 @@
 ### Steps
 1. Copy `env.example` to `.env`: `cp env.example .env`
 2. Allow your `.env` using direnv: `direnv allow .`
-3. Run the server using: `rails s`
+3. Run the app using: `bin/dev`
+
+### Notes
+If you want to debug the application, it's better to run all scripts manually. Check `Procfile.dev`to know which commands to run!
