@@ -16,4 +16,4 @@
 3. Run the app using: `bin/dev`
 
 ### Notes
-If you want to debug the application, it's better to run all scripts manually. Check `Procfile.dev`to know which commands to run!
+It's better to run all scripts manually if you want **to debug the application**. Check `Procfile.dev`to know which commands to run!
