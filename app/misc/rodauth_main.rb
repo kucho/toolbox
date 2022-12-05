@@ -151,15 +151,15 @@ class RodauthMain < Rodauth::Rails::Auth
     # remember_deadline_interval Hash[days: 30]
 
     after_login do
-      tenant_account = TenantAccount.find_by(account_id: account_id, tenant_id: MultiTenantSupport.current_tenant_id)
-      throw_error("account_id", "Account not found for tenant") unless tenant_account
+      organization_account = OrganizationAccount.find_by(account_id: account_id, organization_id: MultiTenantSupport.current_tenant_id)
+      throw_error("account_id", "Account not found for tenant") unless organization_account
 
-      TenantActiveSession.create!(tenant_id: MultiTenantSupport.current_tenant_id, account_id: account_id, session_key_id: session_value)
+      OrganizationActiveSession.create!(organization_id: MultiTenantSupport.current_tenant_id, account_id: account_id, session_key_id: session_value)
     end
 
     before_logout do
-      tenant_active_session = TenantActiveSession.find_by(tenant_id: MultiTenantSupport.current_tenant_id, session_key_id: session_value)
-      tenant_active_session.destroy! if tenant_active_session
+      org_active_session = OrganizationActiveSession.find_by(organization_id: MultiTenantSupport.current_tenant_id, session_key_id: session_value)
+      org_active_session.destroy! if org_active_session
     end
   end
 end

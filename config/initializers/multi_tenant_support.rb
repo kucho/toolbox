@@ -1,6 +1,6 @@
 MultiTenantSupport.configure do
   model do |config|
-    config.tenant_account_class_name = "Tenant"
+    config.tenant_account_class_name = "Organization"
     config.tenant_account_primary_key = :id
   end
 
