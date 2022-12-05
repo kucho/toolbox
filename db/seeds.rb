@@ -6,16 +6,16 @@
 #   movies = Movie.create([{ name: "Star Wars" }, { name: "Lord of the Rings" }])
 #   Character.create(name: "Luke", movie: movies.first)
 
-tenant = Tenant.create!(name: "Toolbox", domain: "localhost")
+org = Organization.create!(name: "Toolbox", domain: "localhost")
 account = Account.create!(email: "test@test.com", password: "12345678", status: :verified)
 
-MultiTenantSupport.under_tenant(tenant) do
-  tenant.accounts << account
+MultiTenantSupport.under_tenant(org) do
+  org.accounts << account
 end
 
-coneable_tenant = Tenant.create!(name: "Coneable", domain: "localhost")
+coneable_org = Organization.create!(name: "Coneable", domain: "localhost")
 coneable_account = Account.create!(email: "drihu@test.com", password: "12345678", status: :verified)
 
-MultiTenantSupport.under_tenant(coneable_tenant) do
-  coneable_tenant.accounts << coneable_account
+MultiTenantSupport.under_tenant(coneable_org) do
+  coneable_org.accounts << coneable_account
 end

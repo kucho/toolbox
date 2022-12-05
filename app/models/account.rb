@@ -3,6 +3,6 @@ class Account < ApplicationRecord
 
   enum status: {unverified: 1, verified: 2, closed: 3}
 
-  has_many :tenant_accounts
-  has_many :tenants, through: :tenant_accounts
+  has_many :organization_accounts
+  has_many :organizations, through: :organization_accounts
 end

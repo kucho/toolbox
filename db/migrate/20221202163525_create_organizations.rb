@@ -1,6 +1,6 @@
-class CreateTenants < ActiveRecord::Migration[7.0]
+class CreateOrganizations < ActiveRecord::Migration[7.0]
   def change
-    create_table(:tenants) do |t|
+    create_table(:organizations) do |t|
       t.uuid(:uuid, default: "gen_random_uuid()")
       t.string(:name)
       t.string(:slug)
