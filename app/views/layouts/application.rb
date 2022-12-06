@@ -1,6 +1,6 @@
 module Views
   module Layouts
-    class Application < Phlex::HTML
+    class Application < ApplicationView
       include Phlex::Rails::Layout
 
       def initialize(title:)

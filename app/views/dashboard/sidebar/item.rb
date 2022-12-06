@@ -1,5 +1,5 @@
 module Views::Dashboard::Sidebar
-  class Item < Phlex::HTML
+  class Item < Views::ApplicationView
     def initialize(text:, href:)
       @text = text
       @href = href
