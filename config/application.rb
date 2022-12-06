@@ -1,4 +1,5 @@
 require_relative "boot"
+require_relative "../app/lib/middleware/set_tenant_middleware.rb"
 
 require "rails/all"
 
@@ -23,5 +24,7 @@ module Toolbox
     config.generators do |g|
       g.test_framework nil, fixture: false
     end
+
+    config.middleware.use ::Middleware::SetTenantMiddleware
   end
 end
