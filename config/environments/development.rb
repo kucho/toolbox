@@ -68,4 +68,6 @@ Rails.application.configure do
   # config.action_cable.disable_request_forgery_protection = true
 
   config.action_dispatch.tld_length = 0
+
+  config.active_record.async_query_executor = :global_thread_pool
 end
