@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_12_02_213115) do
+ActiveRecord::Schema[7.0].define(version: 2022_12_06_213433) do
   # These are extensions that must be enabled in order to support this database
   enable_extension("citext")
   enable_extension("pgcrypto")
@@ -127,6 +127,26 @@ ActiveRecord::Schema[7.0].define(version: 2022_12_02_213115) do
     t.index(["account_id"], name: "index_profiles_on_account_id")
   end
 
+  create_table("team_accounts", force: :cascade) do |t|
+    t.bigint("organization_id", null: false)
+    t.bigint("account_id", null: false)
+    t.bigint("team_id", null: false)
+    t.datetime("created_at", null: false)
+    t.datetime("updated_at", null: false)
+    t.index(["account_id"], name: "index_team_accounts_on_account_id")
+    t.index(["organization_id"], name: "index_team_accounts_on_organization_id")
+    t.index(["team_id"], name: "index_team_accounts_on_team_id")
+  end
+
+  create_table("teams", force: :cascade) do |t|
+    t.bigint("organization_id", null: false)
+    t.string("name")
+    t.string("description")
+    t.datetime("created_at", null: false)
+    t.datetime("updated_at", null: false)
+    t.index(["organization_id"], name: "index_teams_on_organization_id")
+  end
+
   add_foreign_key("account_active_session_keys", "accounts")
   add_foreign_key("account_authentication_audit_logs", "accounts")
   add_foreign_key("account_login_change_keys", "accounts", column: "id")
@@ -138,4 +158,6 @@ ActiveRecord::Schema[7.0].define(version: 2022_12_02_213115) do
   add_foreign_key("organization_active_sessions", "accounts")
   add_foreign_key("organization_active_sessions", "organizations")
   add_foreign_key("profiles", "accounts")
+  add_foreign_key("team_accounts", "accounts")
+  add_foreign_key("team_accounts", "teams")
 end
