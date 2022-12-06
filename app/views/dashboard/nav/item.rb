@@ -1,5 +1,5 @@
 module Views::Dashboard::Nav
-  class Item < Phlex::HTML
+  class Item < Views::ApplicationView
     def initialize(href:, text:)
       @text = text
       @href = href

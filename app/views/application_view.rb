@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 module Views
-  module ApplicationView
+  class ApplicationView < Phlex::HTML
     include Rails.application.routes.url_helpers
   end
 end
