@@ -5,4 +5,6 @@ class Account < ApplicationRecord
 
   has_many :organization_accounts
   has_many :organizations, through: :organization_accounts
+  has_many :team_accounts
+  has_many :teams, through: :team_accounts
 end
