@@ -7,8 +7,8 @@ module Views::Dashboard::Sidebar
 
     def template
       li do
-        a(href: @href, class: "flex items-center p-2 text-base font-normal rounded-lg dark:text-white hover:bg-gray-100") do
-          span(class: "text-gray-900 ml-3") { @text }
+        a(href: @href, class: "text-base text-gray-900 font-normal rounded-lg flex items-center p-2 hover:bg-gray-100 group") do
+          span(class: "ml-3") { @text }
         end
       end
     end
