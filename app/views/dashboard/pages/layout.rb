@@ -7,7 +7,7 @@ module Views
         end
 
         def header(**args, &)
-          render Pages::Header.new(**args) { yield_content(&) }
+          render(Pages::Header.new(**args)) { yield_content(&) }
         end
 
         def body(&)

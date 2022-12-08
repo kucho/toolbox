@@ -11,9 +11,8 @@ module Views
             div(class: "mb-1 w-full") do
               render(Views::Dashboard::Pages::Breadcrumb.new(helpers.breadcrumbs))
               h1(class: "text-xl sm:text-2xl font-semibold text-gray-900 mt-4") { @title } if @title
+              yield_content(&content)
             end
-
-            div(&content) if content.present?
           end
         end
       end
