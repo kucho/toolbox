@@ -7,10 +7,18 @@ module Views
         end
 
         def template
-          render(Layout.new(title: "Teams")) do
-            div(class: "flex flex-col") do
-              @teams.each do |team|
-                p { team.name }
+          render(Pages::Layout.new) do |c|
+            c.header(title: "All Teams")
+
+            c.body do
+              if @teams.empty?
+                p(class: "text-center") { "Create a new team to start!" }
+              else
+                div(class: "flex flex-col") do
+                  @teams.each do |team|
+                    p { team.name }
+                  end
+                end
               end
             end
           end

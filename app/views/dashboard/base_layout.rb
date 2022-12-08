@@ -1,6 +1,6 @@
 module Views
   module Dashboard
-    class Layout < Views::ApplicationView
+    class BaseLayout < Views::ApplicationView
       def initialize(title:)
         @title = title
       end
@@ -11,7 +11,7 @@ module Views
           div(class: "flex overflow-hidden bg-white pt-16") do
             render(Views::Dashboard::Sidebar::Bar.new)
             div(id: "main-content", class: "h-full w-full bg-gray-50 relative overflow-y-auto lg:ml-64") do
-              main(class: "bg-gray-50", &)
+              main(&)
             end
           end
         end
