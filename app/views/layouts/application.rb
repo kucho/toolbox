@@ -19,7 +19,7 @@ module Views
             javascript_include_tag "application"
           end
 
-          body(&)
+          body(class: "bg-gray-50", &)
         end
       end
     end
