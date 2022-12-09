@@ -2,16 +2,16 @@ module Views
   module Dashboard
     module Pages
       class Layout < ApplicationView
-        def template(&)
-          render(Dashboard::BaseLayout.new(title: page_title)) { yield_content(&) }
+        def template(&content)
+          render(Dashboard::BaseLayout.new(title: page_title)) { yield_content(&content) }
         end
 
-        def header(**args, &)
-          render(Pages::Header.new(**args)) { yield_content(&) }
+        def header(**args, &content)
+          render(Pages::Header.new(**args)) { yield_content(&content) }
         end
 
-        def body(&)
-          div(&)
+        def body(&content)
+          div(&content)
         end
 
         private
