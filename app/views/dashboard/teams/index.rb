@@ -2,6 +2,8 @@ module Views
   module Dashboard
     module Teams
       class Index < Views::ApplicationView
+        include Views::SVG
+
         def initialize(teams:)
           @teams = teams
         end
@@ -12,14 +14,7 @@ module Views
               div(class: "block sm:flex items-center md:divide-x md:divide-gray-100") do
                 div(class: "flex items-center sm:justify-end w-full") do
                   button(type: "button", class: button_style) do
-                    svg(class: "-ml-1 mr-2 h-6 w-6", fill: "currentColor", viewBox: "0 0 20 20", xmlns: "http://www.w3.org/2000/svg") do
-                      path(
-                        :"fill-rule" => "evenodd",
-                        :d => "M10 5a1 1 0 011 1v3h3a1 1 0 110 2h-3v3a1 1 0 11-2 0v-3H6a1 1 0 110-2h3V6a1 1 0 011-1z",
-                        :"clip-rule" => "evenodd"
-                      )
-                    end
-
+                    plus_icon
                     text("Add Team")
                   end
                 end
@@ -31,8 +26,31 @@ module Views
                 p(class: "text-center") { "Create a new team to start!" }
               else
                 div(class: "flex flex-col") do
-                  @teams.each do |team|
-                    p { team.name }
+                  render(Views::Dashboard::Table.new(headers: ["Name", "Members", "Actions"])) do |t|
+                    @teams.each do |team|
+                      t.row do
+                        t.checkbox(id: team.id)
+                        t.cell { team.name }
+                        t.cell { team.accounts.size }
+                        t.action_cell do
+                          button(
+                            type: "button",
+                            class: "text-white bg-cyan-600 hover:bg-cyan-700 focus:ring-4 focus:ring-cyan-200 font-medium rounded-lg text-sm inline-flex items-center px-3 py-2 text-center"
+                          ) do
+                            pen_to_square_icon
+                            text("Edit")
+                          end
+
+                          button(
+                            type: "button",
+                            class: "text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm inline-flex items-center px-3 py-2 text-center"
+                          ) do
+                            trash_icon
+                            text("Delete")
+                          end
+                        end
+                      end
+                    end
                   end
                 end
               end
