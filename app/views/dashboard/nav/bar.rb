@@ -35,12 +35,22 @@ module Views::Dashboard::Nav
 
             div(class: "flex items-center") do
               ul(
-                class: "flex flex-col border border-gray-100 rounded-lg bg-gray-50 md:flex-row md:space-x-8 md:mt-0 md:text-sm md:font-medium md:border-0 md:bg-white dark:bg-gray-800"
+                class: "flex flex-col border border-gray-100 rounded-lg bg-gray-50 md:flex-row md:space-x-2 md:mt-0 md:text-sm md:font-medium md:border-0 md:bg-white dark:bg-gray-800"
               ) do
-                4.times do |i|
-                  render(
-                    Item.new(href: "#", text: "Item #{i + 1}")
-                  )
+                render(Item.new) { |style| button(class: style) { notification_icon } }
+                # Little trick to render the user button rounded
+                render(Item.new) do |style|
+                  button(
+                    class: style.sub("rounded-lg", "rounded-full"), data: { "dropdown-toggle": "user-dropdown" }
+                  ) { user_icon }
+                  
+                  # TODO: move this (dropdown) to its own component
+                  style_withoud_rounded = style.sub("rounded-lg", "")
+                  div(class: "hidden z-10 w-44 bg-white rounded divide-y divide-gray-100 shadow p-3", id: "user-dropdown") do
+                    a(class: style_withoud_rounded, href: "#") { MultiTenantSupport.current_tenant.name }
+                    a(class: style_withoud_rounded, href: "#") { "Settings" }
+                    a(class: style_withoud_rounded, href: "#") { "Logout" }
+                  end
                 end
               end
             end
