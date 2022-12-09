@@ -3,7 +3,6 @@ git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
 gem "bootsnap", require: false # Reduces boot times through caching; required in config/boot.rb
 gem "cssbundling-rails" # Bundle and process CSS [https://github.com/rails/cssbundling-rails]
-gem "hotwire-livereload", "~> 1.2"
 gem "jbuilder" # Build JSON APIs with ease [https://github.com/rails/jbuilder]
 gem "jsbundling-rails" # Bundle and transpile JavaScript [https://github.com/rails/jsbundling-rails]
 gem "multi-tenant-support"
@@ -28,6 +27,8 @@ group :development, :test do
 end
 
 group :development do
+  gem "hotwire-livereload", "~> 1.2"
+  gem "letter_opener"
   gem "web-console" # Use console on exceptions pages [https://github.com/rails/web-console]
   # gem "rack-mini-profiler" # Add speed badges [https://github.com/MiniProfiler/rack-mini-profiler]
   # gem "spring" # Speed up commands on slow machines / big apps [https://github.com/rails/spring]
