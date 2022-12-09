@@ -7,9 +7,9 @@ module Views
           c.header
           c.body do
             # cards
-            div(class: "flex gap-10 mt-7 justify-center") do
+            div(class: "flex gap-10 m-7 justify-center") do
               # <= CARD BEGIN
-              div(class: "flex flex-col w-52 h-40 rounded-md shadow-md justify-between px-3 pb-2 pt-3") do
+              div(class: "flex flex-col w-52 h-40 rounded-md bg-white shadow-md justify-between px-3 pb-2 pt-3") do
                 div(class: "flex flex-row justify-between") do
                   div(class: "flex text-xl w-10") { "🛒" }
                   div(class: "flex w-13 justify-center text-xs items-center rounded-full bg-emerald-300 text-white px-1.5 py-0.5") { "+20%" }
@@ -22,7 +22,7 @@ module Views
               end
               # CARD END =>
               # <= CARD BEGIN
-              div(class: "flex flex-col w-52 h-40 rounded-md shadow-md justify-between px-3 pb-2 pt-3") do
+              div(class: "flex flex-col w-52 h-40 rounded-md bg-white shadow-md justify-between px-3 pb-2 pt-3") do
                 div(class: "flex flex-row justify-between") do
                   div(class: "flex text-xl w-10") do
                     "🏪"
@@ -40,7 +40,7 @@ module Views
               end
               # CARD END =>
               # <= CARD BEGIN
-              div(class: "flex flex-col w-52 h-40 rounded-md shadow-md justify-between px-3 pb-2 pt-3") do
+              div(class: "flex flex-col w-52 h-40 rounded-md bg-white shadow-md justify-between px-3 pb-2 pt-3") do
                 div(class: "flex flex-row justify-between") do
                   div(class: "flex text-xl w-10") { "🛒" }
 
