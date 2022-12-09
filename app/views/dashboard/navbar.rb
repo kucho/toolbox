@@ -1,5 +1,5 @@
-module Views::Dashboard::Nav
-  class Bar < Views::ApplicationView
+module Views::Dashboard
+  class Navbar < Views::ApplicationView
     include Views::SVG
 
     def template
@@ -37,19 +37,19 @@ module Views::Dashboard::Nav
               ul(
                 class: "flex flex-col border border-gray-100 rounded-lg bg-gray-50 md:flex-row md:space-x-2 md:mt-0 md:text-sm md:font-medium md:border-0 md:bg-white dark:bg-gray-800"
               ) do
-                render(Item.new) { |style| button(class: style) { notification_icon } }
-                # Little trick to render the user button rounded
-                render(Item.new) do |style|
-                  button(
-                    class: style.sub("rounded-lg", "rounded-full"), data: { "dropdown-toggle": "user-dropdown" }
-                  ) { user_icon }
-                  
-                  # TODO: move this (dropdown) to its own component
-                  style_withoud_rounded = style.sub("rounded-lg", "")
-                  div(class: "hidden z-10 w-44 bg-white rounded divide-y divide-gray-100 shadow p-3", id: "user-dropdown") do
-                    a(class: style_withoud_rounded, href: "#") { MultiTenantSupport.current_tenant.name }
-                    a(class: style_withoud_rounded, href: "#") { "Settings" }
-                    a(class: style_withoud_rounded, href: "#") { "Logout" }
+                li do
+                  button(class: item_icon_style) { notification_icon }
+                end
+
+                li do
+                  button(:class => item_icon_style, :"data-dropdown-toggle" => "user-dropdown") do
+                    user_icon
+                  end
+
+                  div(class: "hidden z-10 w-44 bg-white rounded divide-y divide-gray-100 shadow", id: "user-dropdown") do
+                    a(class: item_dropdown_style, href: "#") { MultiTenantSupport.current_tenant.name }
+                    a(class: item_dropdown_style, href: "#") { "Settings" }
+                    a(class: item_dropdown_style, href: "#") { "Logout" }
                   end
                 end
               end
@@ -57,6 +57,22 @@ module Views::Dashboard::Nav
           end
         end
       end
+    end
+
+    private
+
+    def item_dropdown_style
+      tokens(item_base_styles, "px-3", "py-2")
+    end
+
+    def item_icon_style
+      tokens(item_base_styles, "p-2", " rounded-lg")
+    end
+
+    def item_base_styles
+      <<-STYLES.squish
+         flex items-center hover:bg-gray-100 group text-base text-gray-900 font-normal
+      STYLES
     end
   end
 end
