@@ -49,7 +49,9 @@ module Views::Dashboard
                   div(class: "hidden z-10 w-44 bg-white rounded divide-y divide-gray-100 shadow", id: "user-dropdown") do
                     a(class: item_dropdown_style, href: "#") { MultiTenantSupport.current_tenant.name }
                     a(class: item_dropdown_style, href: "#") { "Settings" }
-                    a(class: item_dropdown_style, href: "#") { "Logout" }
+                    form(:action => helpers.rodauth.logout_url, :method => :post, :"data-turbo" => false) do |form|
+                      button(type: "submit", class: tokens(item_dropdown_style, "w-full")) { helpers.rodauth.logout_button }
+                    end
                   end
                 end
               end
