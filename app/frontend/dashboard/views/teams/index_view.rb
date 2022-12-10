@@ -13,7 +13,7 @@ module Dashboard
             c.header(title: "All Teams") do
               div(class: "block sm:flex items-center md:divide-x md:divide-gray-100") do
                 div(class: "flex items-center sm:justify-end w-full") do
-                  button(type: "button", class: button_style) do
+                  button(:type => "button", :class => button_style, :"data-modal-toggle" => "add-team-modal") do
                     plus_icon
                     text("Add Team")
                   end
@@ -22,6 +22,39 @@ module Dashboard
             end
 
             c.body do
+              render(Components::ModalComponent.new(id: "add-team-modal")) do |m|
+                m.header do
+                  h3(class: "text-xl font-semibold") { "Add Team" }
+                end
+
+                m.body do
+                  form(action: "#") do |f|
+                    div(class: "grid grid-cols-6 gap-6") do
+                      div(class: "col-span-6 sm:col-span-3") do
+                        f.label(for: "name", class: "text-sm font-medium text-gray-900 block mb-2") { "Name" }
+                        f.input(
+                          type: "text",
+                          name: "name",
+                          id: "team-name",
+                          class: "shadow-sm bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block w-full p-2.5",
+                          placeholder: "Accounting",
+                          required: true
+                        )
+                      end
+                    end
+                  end
+                end
+
+                m.footer do
+                  button(
+                    class: "text-white bg-cyan-600 hover:bg-cyan-700 focus:ring-4 focus:ring-cyan-200 font-medium rounded-lg text-sm px-5 py-2.5 text-center",
+                    type: "submit"
+                  ) do
+                    "Add Team"
+                  end
+                end
+              end
+
               if @teams.empty?
                 p(class: "text-center") { "Create a new team to start!" }
               else
