@@ -1,7 +1,7 @@
 module Dashboard
   class PagesController < ApplicationController
     def dashboard
-      render(Views::Pages::Dashboard.new)
+      render(Dashboard::Views::RootView.new)
     end
   end
 end

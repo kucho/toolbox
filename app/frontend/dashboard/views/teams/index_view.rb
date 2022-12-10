@@ -1,15 +1,15 @@
-module Views
-  module Dashboard
+module Dashboard
+  module Views
     module Teams
-      class Index < Views::ApplicationView
-        include Views::SVG
+      class IndexView < ApplicationView
+        include Shared::SVGCollection
 
         def initialize(teams:)
           @teams = teams
         end
 
         def template
-          render(Pages::Layout.new) do |c|
+          render(Layouts::RootLayout.new) do |c|
             c.header(title: "All Teams") do
               div(class: "block sm:flex items-center md:divide-x md:divide-gray-100") do
                 div(class: "flex items-center sm:justify-end w-full") do
@@ -26,7 +26,7 @@ module Views
                 p(class: "text-center") { "Create a new team to start!" }
               else
                 div(class: "flex flex-col") do
-                  render(Views::Dashboard::Table.new(headers: ["Name", "Members", "Actions"])) do |t|
+                  render(Components::TableComponent.new(headers: ["Name", "Members", "Actions"])) do |t|
                     @teams.each do |team|
                       t.row do
                         t.checkbox(id: team.id)

@@ -1,5 +1,5 @@
-module Views::Dashboard::Sidebar
-  class Bar < Views::ApplicationView
+module Dashboard::Components
+  class SidebarComponent < ApplicationView
     def template
       aside(
         :id => "sidebar",
@@ -10,9 +10,9 @@ module Views::Dashboard::Sidebar
           div(class: "flex-1 flex flex-col pt-5 pb-4 overflow-y-auto") do
             div(class: "flex-1 px-3 bg-white divide-y space-y-1") do
               ul(class: "space-y-2 pb-2") do
-                render(Item.new(text: "Teams", href: dashboard_teams_path))
+                item(text: "Teams", href: dashboard_teams_path)
                 7.times do |i|
-                  render(Item.new(text: "Sidebar Item #{i}", href: "#"))
+                  item(text: "Sidebar Item #{i}", href: "#")
                 end
               end
             end
@@ -21,6 +21,14 @@ module Views::Dashboard::Sidebar
       end
 
       div(class: "bg-gray-900 opacity-50 hidden fixed inset-0 z-10", id: "sidebarBackdrop")
+    end
+
+    def item(text:, href:)
+      li do
+        a(href: href, class: "text-base text-gray-900 font-normal rounded-lg flex items-center p-2 hover:bg-gray-100 group") do
+          span(class: "ml-3") { text }
+        end
+      end
     end
   end
 end

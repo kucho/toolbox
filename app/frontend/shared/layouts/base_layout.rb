@@ -1,6 +1,6 @@
-module Views
+module Shared
   module Layouts
-    class Application < ApplicationView
+    class BaseLayout < ApplicationView
       include Phlex::Rails::Layout
 
       def initialize(title:)

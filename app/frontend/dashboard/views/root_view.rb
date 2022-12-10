@@ -1,9 +1,9 @@
-module Views
-  module Pages
-    class Dashboard < ApplicationView
+module Dashboard
+  module Views
+    class RootView < ApplicationView
 
       def template
-        render(Views::Dashboard::Pages::Layout.new) do |c|
+        render(Layouts::RootLayout.new) do |c|
           c.header
           c.body do
             # cards

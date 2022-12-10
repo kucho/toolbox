@@ -1,6 +1,6 @@
-module Views
-  module Dashboard
-    class Table < ApplicationView
+module Dashboard
+  module Components
+    class TableComponent < ApplicationView
       def initialize(headers:)
         @headers = headers
       end

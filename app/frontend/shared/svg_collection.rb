@@ -1,5 +1,5 @@
-module Views
-  module SVG
+module Shared
+  module SVGCollection
     def plus_icon
       svg(class: "-ml-1 mr-2 h-6 w-6", fill: "currentColor", viewBox: "0 0 20 20", xmlns: xmlns) do
         path(
@@ -63,7 +63,7 @@ module Views
         )
       end
     end
-    
+
     def notification_icon
       svg(class: "w-5 h-5 text-gray-500", fill: "currentColor", viewBox: "0 0 20 20", xmlns: xmlns) do
         path(
@@ -73,7 +73,7 @@ module Views
         )
       end
     end
-    
+
     def user_icon
       svg(class: "w-5 h-5 text-gray-500", stroke_width: "1.5", fill: "currentColor", viewBox: "0 0 24 24", xmlns: xmlns) do
         path(
@@ -81,13 +81,13 @@ module Views
           :d => "M15.75 6a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0zM4.501 20.118a7.5 7.5 0 0114.998 0A17.933 17.933 0 0112 21.75c-2.676 0-5.216-.584-7.499-1.632z",
           :"clip-rule" => "evenodd",
           :"stroke-linecap" => "round",
-          :"stroke-linejoin" => "round",
+          :"stroke-linejoin" => "round"
         )
       end
     end
-    
-    private 
-    
+
+    private
+
     def xmlns
       "http://www.w3.org/2000/svg"
     end
