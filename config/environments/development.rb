@@ -72,4 +72,6 @@ Rails.application.configure do
   config.action_dispatch.tld_length = 0
 
   config.active_record.async_query_executor = :global_thread_pool
+
+  config.hotwire_livereload.listen_paths << Rails.root.join("app/frontend")
 end

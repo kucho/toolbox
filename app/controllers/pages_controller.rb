@@ -2,6 +2,6 @@
 
 class PagesController < ApplicationController
   def landing
-    render(Views::Pages::Landing.new)
+    render(Landing::RootView.new)
   end
 end

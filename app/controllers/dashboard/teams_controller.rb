@@ -4,7 +4,7 @@ module Dashboard
       add_breadcrumb("Teams", request.path)
 
       render(
-        Views::Dashboard::Teams::Index.new(
+        Dashboard::Views::Teams::IndexView.new(
           teams: Team.all.load_async
         )
       )
