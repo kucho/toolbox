@@ -59,6 +59,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_12_06_213433) do
 
   create_table("accounts", force: :cascade) do |t|
     t.integer("status", default: 1, null: false)
+    t.uuid("uuid", default: -> { "gen_random_uuid()" })
     t.citext("email", null: false)
     t.string("password_hash")
     t.index(["email"], name: "index_accounts_on_email", unique: true, where: "(status = ANY (ARRAY[1, 2]))")
@@ -120,6 +121,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_12_06_213433) do
 
   create_table("profiles", force: :cascade) do |t|
     t.string("first_name")
+    t.uuid("uuid", default: -> { "gen_random_uuid()" })
     t.string("last_name")
     t.bigint("account_id", null: false)
     t.datetime("created_at", null: false)
@@ -140,6 +142,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_12_06_213433) do
 
   create_table("teams", force: :cascade) do |t|
     t.bigint("organization_id", null: false)
+    t.uuid("uuid", default: -> { "gen_random_uuid()" })
     t.string("name")
     t.string("description")
     t.datetime("created_at", null: false)

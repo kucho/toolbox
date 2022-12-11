@@ -4,6 +4,7 @@ class CreateRodauth < ActiveRecord::Migration[7.0]
 
     create_table(:accounts) do |t|
       t.integer(:status, null: false, default: 1)
+      t.uuid(:uuid, default: "gen_random_uuid()")
       t.citext(:email, null: false)
       t.index(:email, unique: true, where: "status IN (1, 2)")
       t.string(:password_hash)
