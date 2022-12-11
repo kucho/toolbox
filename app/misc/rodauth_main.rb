@@ -16,7 +16,8 @@ class RodauthMain < Rodauth::Rails::Auth
       :verify_login_change,
       :close_account,
       :active_sessions,
-      :audit_logging
+      :audit_logging,
+      :internal_request
     )
 
     # See the Rodauth documentation for the list of available config options:
@@ -150,6 +151,21 @@ class RodauthMain < Rodauth::Rails::Auth
     # verify_login_change_deadline_interval Hash[days: 2]
     # remember_deadline_interval Hash[days: 30]
 
+    after_create_account do
+      acc = fetch_account
+      Rails
+        .configuration
+        .command_bus
+        .call(
+          Accounts::Commands::CreateAccount.new(
+            account_uuid: acc.uuid,
+            email: acc.email,
+            password_hash: acc.password_hash,
+            organization_uuid: MultiTenantSupport.current_tenant.uuid
+          )
+        )
+    end
+
     after_login do
       organization_account = OrganizationAccount.find_by(account_id: account_id, organization_id: MultiTenantSupport.current_tenant_id)
       throw_error("account_id", "Account not found for tenant") unless organization_account
@@ -161,5 +177,26 @@ class RodauthMain < Rodauth::Rails::Auth
       org_active_session = OrganizationActiveSession.find_by(organization_id: MultiTenantSupport.current_tenant_id, session_key_id: session_value)
       org_active_session.destroy! if org_active_session
     end
+  end
+
+  def setup_account_verification
+    acc = fetch_account
+    Rails.configuration.command_bus.call(Accounts::Commands::SetupAccountVerification.new(account_uuid: acc.uuid))
+    send_verify_account_email
+  end
+
+  def verify_account
+    acc = fetch_account
+    key = get_verify_account_key(account_id)
+    Rails
+      .configuration
+      .command_bus
+      .call(Accounts::Commands::VerifyAccount.new(account_uuid: acc.uuid, verification_key: key))
+  end
+
+  private
+
+  def fetch_account
+    ::Account.find(account_id)
   end
 end
