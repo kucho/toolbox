@@ -17,13 +17,10 @@ class StoreConfiguration
     events.each { |h| Rails.configuration.event_store.subscribe_to_all_events(h) }
   end
 
-  # Example:
-  #       command_bus.register(
-  #         AddItemToShipmentPickingList,
-  #         OnAddItemToShipmentPickingList.new(event_store)
-  #       )
   def configure_bounded_contexts
-    [].each { |c| c.call(event_store, command_bus) }
+    [
+      Accounts::Configuration.new
+    ].each { |c| c.call }
   end
 
   # Example:
@@ -32,5 +29,6 @@ class StoreConfiguration
   #         to: [Payments::PaymentCaptured]
   #       )
   def configure_processes
+    Account::Configuration.new.call
   end
 end
