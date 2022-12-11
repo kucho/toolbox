@@ -13,6 +13,7 @@ gem "rails", "~> 7.0.4" # Bundle edge Rails instead: gem "rails", github: "rails
 gem "rails_event_store"
 gem "redis", "~> 4.0" # Use Redis adapter to run Action Cable in production
 gem "rodauth-rails"
+gem "sidekiq", "~> 7.0"
 gem "sprockets-rails" # The original asset pipeline for Rails [https://github.com/rails/sprockets-rails]
 gem "stimulus-rails" # Hotwire's modest JavaScript framework [https://stimulus.hotwired.dev]
 gem "turbo-rails" # Hotwire's SPA-like page accelerator [https://turbo.hotwired.dev]
