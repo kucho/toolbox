@@ -19,7 +19,8 @@ class StoreConfiguration
 
   def configure_bounded_contexts
     [
-      Accounts::Configuration.new
+      Accounts::Configuration.new,
+      Organizations::Configuration.new
     ].each { |c| c.call }
   end
 
@@ -30,5 +31,6 @@ class StoreConfiguration
   #       )
   def configure_processes
     Account::Configuration.new.call
+    Organization::Configuration.new.call
   end
 end
