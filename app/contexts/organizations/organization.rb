@@ -8,7 +8,7 @@ module Organizations
       @uuid = uuid
     end
 
-    def create(name:, domain:, slug:, logo:)
+    def create(name:, domain:, subdomain:, slug:, logo:)
       apply(
         Events::OrganizationCreated.new(
           data: {
@@ -16,7 +16,7 @@ module Organizations
             logo: logo,
             slug: slug,
             domain: domain,
-            subdomain: slug,
+            subdomain: subdomain,
             organization_uuid: @uuid
           }
         )
@@ -24,7 +24,6 @@ module Organizations
     end
 
     on(Events::OrganizationCreated) do |_|
-      # TODO
     end
   end
 end
