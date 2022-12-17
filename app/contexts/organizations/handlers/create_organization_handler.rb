@@ -7,19 +7,21 @@ module Organizations
 
       def call(command)
         @repository.with_aggregate(::Organizations::Organization, SecureRandom.uuid) do |organization|
-          organization.create(name: command.name, domain: command.domain, slug: command.slug, logo: command.logo)
+          organization.create(
+            name: command.name,
+            subdomain: command.subdomain || command.slug || command.name.downcase.underscore,
+            domain: command.domain,
+            slug: command.slug || command.name.downcase.underscore,
+            logo: command.logo
+          )
         end
       end
     end
 
     class CreateOrganizationJob < EventHandlerJob
       def call(event)
-        name = event.data.fetch(:name)
-        domain = event.data.fetch(:domain)
-        slug = event.data.fetch(:slug)
-        logo = event.data.fetch(:logo)
-
-        ::Organization.create!(name: name, domain: domain, subdomain: slug, slug: slug, logo: logo)
+        org_attributes = event.data.slice(*::Organization.attribute_names.map(&:to_sym))
+        ::Organization.create!(org_attributes)
       end
     end
   end
