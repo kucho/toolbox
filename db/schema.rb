@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_12_06_213433) do
+ActiveRecord::Schema[7.0].define(version: 2022_12_22_035302) do
   # These are extensions that must be enabled in order to support this database
   enable_extension("citext")
   enable_extension("pgcrypto")
@@ -117,6 +117,15 @@ ActiveRecord::Schema[7.0].define(version: 2022_12_06_213433) do
     t.datetime("updated_at", null: false)
     t.string("domain")
     t.string("subdomain")
+  end
+
+  create_table("products", force: :cascade) do |t|
+    t.bigint("organization_id", null: false)
+    t.uuid("uuid", default: -> { "gen_random_uuid()" })
+    t.string("name")
+    t.datetime("created_at", null: false)
+    t.datetime("updated_at", null: false)
+    t.index(["organization_id"], name: "index_products_on_organization_id")
   end
 
   create_table("profiles", force: :cascade) do |t|
