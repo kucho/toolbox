@@ -25,6 +25,46 @@ MultiTenantSupport.under_tenant(org) do
       name: "Magic Keyboard 2"
     )
   )
+
+  product_2 = SecureRandom.uuid
+  cmd_bus.call(
+    ProductCatalog::Commands::RegisterProduct.new(product_uuid: product_2)
+  )
+  cmd_bus.call(
+    ProductCatalog::Commands::NameProduct.new(
+      product_uuid: product_2,
+      name: "Avast Antivirus"
+    )
+  )
+
+  cmd_bus.call(
+    Inventory::Commands::Supply.new(
+      product_uuid: product_1,
+      quantity: 3,
+      unit_price: 480
+    )
+  )
+  cmd_bus.call(
+    Inventory::Commands::Supply.new(
+      product_uuid: product_2,
+      quantity: 2,
+      unit_price: 30
+    )
+  )
+  cmd_bus.call(
+    Inventory::Commands::Supply.new(
+      product_uuid: product_1,
+      quantity: 2,
+      unit_price: 480
+    )
+  )
+  cmd_bus.call(
+    Inventory::Commands::Supply.new(
+      product_uuid: product_1,
+      quantity: 5,
+      unit_price: 420
+    )
+  )
 end
 
 cmd_bus.call(
