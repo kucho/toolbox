@@ -23,7 +23,6 @@ module Organizations
       )
     end
 
-    on(Events::OrganizationCreated) do |_|
-    end
+    on(Events::OrganizationCreated) { |_| }
   end
 end

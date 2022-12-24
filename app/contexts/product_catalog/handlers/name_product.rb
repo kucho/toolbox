@@ -6,9 +6,10 @@ module ProductCatalog
       end
 
       def call(command)
-        @repository.with_aggregate(::ProductCatalog::Product, command.aggregate_id) do |product|
-          product.set_name(command.name)
-        end
+        @repository.with_aggregate(
+          ::ProductCatalog::Product,
+          command.aggregate_id
+        ) { |product| product.set_name(command.name) }
       end
     end
 

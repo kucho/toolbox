@@ -16,7 +16,11 @@ class CreateRodauth < ActiveRecord::Migration[7.0]
       t.foreign_key(:accounts, column: :id)
       t.string(:key, null: false)
       t.datetime(:deadline, null: false)
-      t.datetime(:email_last_sent, null: false, default: -> { "CURRENT_TIMESTAMP" })
+      t.datetime(
+        :email_last_sent,
+        null: false,
+        default: -> { "CURRENT_TIMESTAMP" }
+      )
     end
 
     # Used by the account verification feature
@@ -24,8 +28,16 @@ class CreateRodauth < ActiveRecord::Migration[7.0]
       t.bigint(:id, primary_key: true)
       t.foreign_key(:accounts, column: :id)
       t.string(:key, null: false)
-      t.datetime(:requested_at, null: false, default: -> { "CURRENT_TIMESTAMP" })
-      t.datetime(:email_last_sent, null: false, default: -> { "CURRENT_TIMESTAMP" })
+      t.datetime(
+        :requested_at,
+        null: false,
+        default: -> { "CURRENT_TIMESTAMP" }
+      )
+      t.datetime(
+        :email_last_sent,
+        null: false,
+        default: -> { "CURRENT_TIMESTAMP" }
+      )
     end
 
     # Used by the verify login change feature

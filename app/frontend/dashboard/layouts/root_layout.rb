@@ -6,15 +6,19 @@ module Dashboard
           render(Components::NavbarComponent.new)
           div(class: "flex overflow-hidden bg-white pt-16") do
             render(Components::SidebarComponent.new)
-            div(id: "main-content", class: "h-full w-full bg-gray-50 relative overflow-y-auto lg:ml-64") do
-              main(&content)
-            end
+            div(
+              id: "main-content",
+              class:
+                "h-full w-full bg-gray-50 relative overflow-y-auto lg:ml-64"
+            ) { main(&content) }
           end
         end
       end
 
       def header(**args, &content)
-        render(Components::PageHeaderComponent.new(**args)) { yield_content(&content) }
+        render(Components::PageHeaderComponent.new(**args)) do
+          yield_content(&content)
+        end
       end
 
       def body(&content)

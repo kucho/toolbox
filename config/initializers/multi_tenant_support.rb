@@ -14,9 +14,7 @@ MultiTenantSupport.configure do
     config.host = Rails.env.development? ? "localhost" : "UPDATE-YOUR-HOST"
   end
 
-  console do |config|
-    config.allow_read_across_tenant_by_default = true
-  end
+  console { |config| config.allow_read_across_tenant_by_default = true }
 end
 
 # Uncomment if you are using sidekiq without ActiveJob

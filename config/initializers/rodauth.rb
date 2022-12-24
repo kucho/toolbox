@@ -1,3 +1,1 @@
-Rodauth::Rails.configure do |config|
-  config.app = "RodauthApp"
-end
+Rodauth::Rails.configure { |config| config.app = "RodauthApp" }

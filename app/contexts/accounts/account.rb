@@ -65,17 +65,11 @@ module Accounts
       )
     end
 
-    on(Events::AccountCreated) do |_event|
-      @created = true
-    end
+    on(Events::AccountCreated) { |_event| @created = true }
 
-    on(Events::AccountVerified) do |_event|
-      @status = :verified
-    end
+    on(Events::AccountVerified) { |_event| @status = :verified }
 
-    on(Events::AccountCancelled) do |_event|
-      @status = :closed
-    end
+    on(Events::AccountCancelled) { |_event| @status = :closed }
 
     on(Events::AccountVerificationSetup) do |_event|
       @verification_sent = Time.current

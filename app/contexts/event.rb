@@ -18,7 +18,10 @@ class Event < RubyEventStore::Event
         super(
           event_id: event_id,
           metadata: metadata,
-          data: data.deep_merge(self.class.schema.new(data.deep_symbolize_keys).to_h)
+          data:
+            data.deep_merge(
+              self.class.schema.new(data.deep_symbolize_keys).to_h
+            )
         )
       end
     end

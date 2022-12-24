@@ -6,9 +6,10 @@ module Accounts
       end
 
       def call(command)
-        @repository.with_aggregate(::Accounts::Account, command.aggregate_id) do |account|
-          account.cancel(command.reason)
-        end
+        @repository.with_aggregate(
+          ::Accounts::Account,
+          command.aggregate_id
+        ) { |account| account.cancel(command.reason) }
       end
     end
 

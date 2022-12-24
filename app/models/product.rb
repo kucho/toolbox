@@ -3,8 +3,14 @@ class Product < ApplicationRecord
 
   class Configuration
     def call
-      event_store.subscribe(ProductCatalog::Handlers::RegisterProductJob, to: [ProductCatalog::Events::ProductRegistered])
-      event_store.subscribe(ProductCatalog::Handlers::NameProductJob, to: [ProductCatalog::Events::ProductNamed])
+      event_store.subscribe(
+        ProductCatalog::Handlers::RegisterProductJob,
+        to: [ProductCatalog::Events::ProductRegistered]
+      )
+      event_store.subscribe(
+        ProductCatalog::Handlers::NameProductJob,
+        to: [ProductCatalog::Events::ProductNamed]
+      )
     end
 
     private

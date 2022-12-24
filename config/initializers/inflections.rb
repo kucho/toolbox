@@ -10,6 +10,4 @@
 #   inflect.uncountable %w( fish sheep )
 # end
 
-ActiveSupport::Inflector.inflections(:en) do |inflect|
-  inflect.acronym("SVG")
-end
+ActiveSupport::Inflector.inflections(:en) { |inflect| inflect.acronym("SVG") }

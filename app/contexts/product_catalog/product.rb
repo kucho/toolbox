@@ -11,32 +11,16 @@ module ProductCatalog
     def register
       raise AlreadyRegistered unless all_events_from_stream.empty?
 
-      apply(
-        Events::ProductRegistered.new(
-          data: {
-            product_uuid: @uuid
-          }
-        )
-      )
+      apply(Events::ProductRegistered.new(data: { product_uuid: @uuid }))
     end
 
     def set_name(name)
-      apply(
-        Events::ProductNamed.new(
-          data: {
-            product_uuid: @uuid,
-            name: name
-          }
-        )
-      )
+      apply(Events::ProductNamed.new(data: { product_uuid: @uuid, name: name }))
     end
 
-    on(Events::ProductRegistered) do |_event|
-    end
+    on(Events::ProductRegistered) { |_event| }
 
-    on(Events::ProductNamed) do |event|
-      @name = event.data.fetch(:name)
-    end
+    on(Events::ProductNamed) { |event| @name = event.data.fetch(:name) }
 
     private
 

@@ -1,7 +1,10 @@
 module Organizations
   class Configuration
     def call
-      command_bus.register(Commands::CreateOrganization, Handlers::CreateOrganizationHandler.new)
+      command_bus.register(
+        Commands::CreateOrganization,
+        Handlers::CreateOrganizationHandler.new
+      )
     end
 
     private

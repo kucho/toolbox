@@ -4,7 +4,10 @@ class Organization < ApplicationRecord
 
   class Configuration
     def call
-      event_store.subscribe(Organizations::Handlers::CreateOrganizationJob, to: [Organizations::Events::OrganizationCreated])
+      event_store.subscribe(
+        Organizations::Handlers::CreateOrganizationJob,
+        to: [Organizations::Events::OrganizationCreated]
+      )
     end
 
     private

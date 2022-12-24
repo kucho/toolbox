@@ -6,7 +6,11 @@ module ProductCatalog
       end
 
       def call(command)
-        @repository.with_aggregate(::ProductCatalog::Product, command.aggregate_id, &:register)
+        @repository.with_aggregate(
+          ::ProductCatalog::Product,
+          command.aggregate_id,
+          &:register
+        )
       end
     end
 

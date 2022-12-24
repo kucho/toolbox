@@ -6,8 +6,14 @@ module Accounts
       end
 
       def call(command)
-        @repository.with_aggregate(::Accounts::Account, command.aggregate_id) do |account|
-          account.create(email: command.email, password_hash: command.password_hash)
+        @repository.with_aggregate(
+          ::Accounts::Account,
+          command.aggregate_id
+        ) do |account|
+          account.create(
+            email: command.email,
+            password_hash: command.password_hash
+          )
         end
       end
     end
@@ -18,9 +24,7 @@ module Accounts
         org = ::Organization.find_by!(uuid: org_uuid)
         acc = ::Account.find_by!(uuid: event.data.fetch(:account_uuid))
 
-        MultiTenantSupport.under_tenant(org) do
-          org.accounts << acc
-        end
+        MultiTenantSupport.under_tenant(org) { org.accounts << acc }
       end
     end
   end

@@ -20,9 +20,7 @@ module Toolbox
     # config.time_zone = "Central Time (US & Canada)"
     # config.eager_load_paths << Rails.root.join("extras")
 
-    config.generators do |g|
-      g.test_framework nil, fixture: false
-    end
+    config.generators { |g| g.test_framework nil, fixture: false }
 
     config.middleware.use ::Middleware::SetTenantMiddleware
   end

@@ -6,7 +6,7 @@ class CreateRodauthAuditLogging < ActiveRecord::Migration[7.0]
       t.datetime :at, null: false, default: -> { "CURRENT_TIMESTAMP" }
       t.text :message, null: false
       t.jsonb :metadata
-      t.index [:account_id, :at], name: "audit_account_at_idx"
+      t.index %i[account_id at], name: "audit_account_at_idx"
       t.index :at, name: "audit_at_idx"
     end
   end

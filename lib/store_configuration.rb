@@ -14,7 +14,9 @@ class StoreConfiguration
       RailsEventStore::LinkByCausationId.new
     ]
 
-    events.each { |h| Rails.configuration.event_store.subscribe_to_all_events(h) }
+    events.each do |h|
+      Rails.configuration.event_store.subscribe_to_all_events(h)
+    end
   end
 
   def configure_bounded_contexts

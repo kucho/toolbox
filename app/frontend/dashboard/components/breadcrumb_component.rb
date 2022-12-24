@@ -8,10 +8,14 @@ module Dashboard
       end
 
       def template
-        nav(:class => "flex", :"aria-label" => "Breadcrumb") do
+        nav(class: "flex", "aria-label": "Breadcrumb") do
           ol(class: "inline-flex items-center space-x-1 md:space-x-2") do
             li(class: "inline-flex items-center") do
-              a(href: dashboard_path, class: "text-gray-700 hover:text-gray-900 inline-flex items-center") do
+              a(
+                href: dashboard_path,
+                class:
+                  "text-gray-700 hover:text-gray-900 inline-flex items-center"
+              ) do
                 home_icon
                 text("Home")
               end
@@ -39,13 +43,17 @@ module Dashboard
       private
 
       def current_crumb(name)
-        span(:class => "text-gray-400 ml-1 md:ml-2 font-medium", :"aria-current" => "page") do
-          name
-        end
+        span(
+          class: "text-gray-400 ml-1 md:ml-2 font-medium",
+          "aria-current": "page"
+        ) { name }
       end
 
       def regular_crumb(name, path)
-        a(href: path, class: "text-gray-700 hover:text-gray-900 ml-1 md:ml-2 font-medium") { name }
+        a(
+          href: path,
+          class: "text-gray-700 hover:text-gray-900 ml-1 md:ml-2 font-medium"
+        ) { name }
       end
     end
   end

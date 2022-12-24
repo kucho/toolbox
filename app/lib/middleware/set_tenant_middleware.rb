@@ -7,9 +7,7 @@ module Middleware
     def call(env)
       @req = ActionDispatch::Request.new(env)
 
-      if !@req.subdomains.empty?
-        set_current_tenant_account
-      end
+      set_current_tenant_account if !@req.subdomains.empty?
 
       @app.call(env)
     end
@@ -19,7 +17,10 @@ module Middleware
     def set_current_tenant_account
       tenant_account = find_current_tenant_account
       MultiTenantSupport.set_current_tenant(tenant_account)
-      instance_variable_set("@#{MultiTenantSupport.current_tenant_account_method}", tenant_account)
+      instance_variable_set(
+        "@#{MultiTenantSupport.current_tenant_account_method}",
+        tenant_account
+      )
     end
 
     def find_current_tenant_account

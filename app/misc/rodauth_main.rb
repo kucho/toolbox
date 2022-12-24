@@ -59,15 +59,27 @@ class RodauthMain < Rodauth::Rails::Auth
     # ==> Emails
     # Use a custom mailer for delivering authentication emails.
     create_reset_password_email do
-      RodauthMailer.reset_password(self.class.configuration_name, account_id, reset_password_key_value)
+      RodauthMailer.reset_password(
+        self.class.configuration_name,
+        account_id,
+        reset_password_key_value
+      )
     end
 
     create_verify_account_email do
-      RodauthMailer.verify_account(self.class.configuration_name, account_id, verify_account_key_value)
+      RodauthMailer.verify_account(
+        self.class.configuration_name,
+        account_id,
+        verify_account_key_value
+      )
     end
 
     create_verify_login_change_email do |_login|
-      RodauthMailer.verify_login_change(self.class.configuration_name, account_id, verify_login_change_key_value)
+      RodauthMailer.verify_login_change(
+        self.class.configuration_name,
+        account_id,
+        verify_login_change_key_value
+      )
     end
 
     create_password_changed_email do
@@ -153,45 +165,60 @@ class RodauthMain < Rodauth::Rails::Auth
 
     after_create_account do
       acc = fetch_account
-      Rails
-        .configuration
-        .command_bus
-        .call(
-          Accounts::Commands::CreateAccount.new(
-            account_uuid: acc.uuid,
-            email: acc.email,
-            password_hash: acc.password_hash,
-            organization_uuid: MultiTenantSupport.current_tenant.uuid
-          )
+      Rails.configuration.command_bus.call(
+        Accounts::Commands::CreateAccount.new(
+          account_uuid: acc.uuid,
+          email: acc.email,
+          password_hash: acc.password_hash,
+          organization_uuid: MultiTenantSupport.current_tenant.uuid
         )
+      )
     end
 
     after_login do
-      organization_account = OrganizationAccount.find_by(account_id: account_id, organization_id: MultiTenantSupport.current_tenant_id)
-      throw_error("account_id", "Account not found for tenant") unless organization_account
+      organization_account =
+        OrganizationAccount.find_by(
+          account_id: account_id,
+          organization_id: MultiTenantSupport.current_tenant_id
+        )
+      unless organization_account
+        throw_error("account_id", "Account not found for tenant")
+      end
 
-      OrganizationActiveSession.create!(organization_id: MultiTenantSupport.current_tenant_id, account_id: account_id, session_key_id: session_value)
+      OrganizationActiveSession.create!(
+        organization_id: MultiTenantSupport.current_tenant_id,
+        account_id: account_id,
+        session_key_id: session_value
+      )
     end
 
     before_logout do
-      org_active_session = OrganizationActiveSession.find_by(organization_id: MultiTenantSupport.current_tenant_id, session_key_id: session_value)
+      org_active_session =
+        OrganizationActiveSession.find_by(
+          organization_id: MultiTenantSupport.current_tenant_id,
+          session_key_id: session_value
+        )
       org_active_session.destroy! if org_active_session
     end
   end
 
   def setup_account_verification
     acc = fetch_account
-    Rails.configuration.command_bus.call(Accounts::Commands::SetupAccountVerification.new(account_uuid: acc.uuid))
+    Rails.configuration.command_bus.call(
+      Accounts::Commands::SetupAccountVerification.new(account_uuid: acc.uuid)
+    )
     send_verify_account_email
   end
 
   def verify_account
     acc = fetch_account
     key = get_verify_account_key(account_id)
-    Rails
-      .configuration
-      .command_bus
-      .call(Accounts::Commands::VerifyAccount.new(account_uuid: acc.uuid, verification_key: key))
+    Rails.configuration.command_bus.call(
+      Accounts::Commands::VerifyAccount.new(
+        account_uuid: acc.uuid,
+        verification_key: key
+      )
+    )
   end
 
   private

@@ -6,9 +6,10 @@ module Accounts
       end
 
       def call(command)
-        @repository.with_aggregate(::Accounts::Account, command.aggregate_id) do |account|
-          account.setup_verification
-        end
+        @repository.with_aggregate(
+          ::Accounts::Account,
+          command.aggregate_id
+        ) { |account| account.setup_verification }
       end
     end
 
@@ -18,14 +19,12 @@ module Accounts
         verification_key = event.data.fetch(:verification_key)
         ds = verify_account_ds(account.id)
         transaction do
-          if ds.empty?
-            ds.insert({id: account.id, key: verification_key})
-          end
+          ds.insert({ id: account.id, key: verification_key }) if ds.empty?
         end
       end
 
       def verify_account_ds(id)
-        db[:account_verification_keys].where(:id => id)
+        db[:account_verification_keys].where(id: id)
       end
 
       def db

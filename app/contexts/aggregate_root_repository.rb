@@ -1,11 +1,15 @@
 require "aggregate_root"
 
 class AggregateRootRepository
-  def initialize(event_store = Rails.configuration.event_store, notifications = ActiveSupport::Notifications)
-    @repository = AggregateRoot::InstrumentedRepository.new(
-      AggregateRoot::Repository.new(event_store),
-      notifications
-    )
+  def initialize(
+    event_store = Rails.configuration.event_store,
+    notifications = ActiveSupport::Notifications
+  )
+    @repository =
+      AggregateRoot::InstrumentedRepository.new(
+        AggregateRoot::Repository.new(event_store),
+        notifications
+      )
   end
 
   def with_aggregate(aggregate_class, aggregate_id, &block)

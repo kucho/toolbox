@@ -1,7 +1,10 @@
 module ProductCatalog
   class Configuration
     def call
-      command_bus.register(Commands::RegisterProduct, Handlers::RegisterProduct.new)
+      command_bus.register(
+        Commands::RegisterProduct,
+        Handlers::RegisterProduct.new
+      )
       command_bus.register(Commands::NameProduct, Handlers::NameProduct.new)
     end
 
