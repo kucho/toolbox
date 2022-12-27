@@ -24,7 +24,8 @@ class StoreConfiguration
       Accounts::Configuration.new,
       Organizations::Configuration.new,
       ProductCatalog::Configuration.new,
-      Inventory::Configuration.new
+      Inventory::Configuration.new,
+      Pricing::Configuration.new
     ].each { |c| c.call }
   end
 

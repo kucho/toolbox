@@ -6,6 +6,7 @@ gem "cssbundling-rails" # Bundle and process CSS [https://github.com/rails/cssbu
 gem "dry-struct", "~> 1.0"
 gem "jbuilder" # Build JSON APIs with ease [https://github.com/rails/jbuilder]
 gem "jsbundling-rails" # Bundle and transpile JavaScript [https://github.com/rails/jsbundling-rails]
+gem "money-rails"
 gem "multi-tenant-support"
 gem "pg", "~> 1.1" # Use postgresql as the database for Active Record
 gem "phlex-rails"

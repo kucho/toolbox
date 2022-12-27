@@ -1,6 +1,8 @@
 class Product < ApplicationRecord
   belongs_to_tenant :organization
 
+  monetize :price_cents
+
   class Configuration
     def call
       event_store.subscribe(
@@ -10,6 +12,10 @@ class Product < ApplicationRecord
       event_store.subscribe(
         ProductCatalog::Handlers::NameProductJob,
         to: [ProductCatalog::Events::ProductNamed]
+      )
+      event_store.subscribe(
+        Pricing::Handlers::SetPriceJob,
+        to: [Pricing::Events::PriceSet]
       )
     end
 

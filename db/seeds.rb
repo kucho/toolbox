@@ -44,6 +44,15 @@ MultiTenantSupport.under_tenant(org) do
       unit_price: 480
     )
   )
+
+  cmd_bus.call(
+    Pricing::Commands::SetPrice.new(
+      product_uuid: product_1,
+      price: 550,
+      currency: "PEN"
+    )
+  )
+
   cmd_bus.call(
     Inventory::Commands::Supply.new(
       product_uuid: product_2,
